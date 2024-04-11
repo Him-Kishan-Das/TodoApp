@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    {{ block.super }}
+    <link href="{% static 'index.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="childContainer">
+    <div class="w-25 right-section">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat cum magnam itaque praesentium, laborum blanditiis harum reiciendis earum quam molestiae iste, eaque velit esse dicta sed placeat. Consequuntur, iusto in!</p>
+    </div>
+    <div class="w-75">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Add Task</button>
+            </li>
+            <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">View Task
+            </button>
+            </li>
+            <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Completed Task</button>
+            </li>
+            <!-- <li class="nav-item" role="presentation">
+            <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+            </li> -->
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <!-- Add task  -->
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <form class="todoForm" action="">
+                    <input type="text" name="todoHeading" id="" />
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+            <!-- View task -->
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">My name is him kishan das</div>
+            <!-- Completed task -->
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">i am working 2</div>
+            <!-- <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">i am working 3</div> -->
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
