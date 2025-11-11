@@ -1,0 +1,26 @@
+name: CI Checks
+
+# This workflow runs on every pull request that targets the 'main' branch
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-markdown:
+    # The name of the job, which will be displayed on GitHub
+    name: Lint Markdown Files
+    # We'll run this on a virtual machine provided by GitHub (a standard Linux environment)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code from your repository so the runner can access it
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Run the markdown linter
+      # This uses a pre-built "Action" from the community to check markdown files
+      - name: Run Markdown Lint
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          # Tell the linter to check all files ending in .md
+          globs: '**/*.md'
