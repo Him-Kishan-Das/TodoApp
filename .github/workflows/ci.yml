@@ -1,0 +1,54 @@
+name: CI/CD Pipeline
+
+# This workflow runs on PUSH events to the main branch,
+# as well as pull requests targeting main.
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  lint-markdown:
+    name: Lint Markdown Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Run Markdown Lint
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: '**/*.md'
+
+  # --- NEW DEPLOYMENT JOB ---
+  deploy-to-pages:
+    name: Deploy to GitHub Pages
+    # This job depends on the linting job. It will only run if lint-markdown succeeds.
+    needs: lint-markdown
+    # We only want to deploy when code is pushed to the MAIN branch,
+    # not on every pull request.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    # Grant permissions to the workflow to write to the deployment.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # This group of steps configures and builds the site for Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Tell it to upload everything in the root directory
+          path: '.'
+      # This final step does the actual deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
